@@ -12,50 +12,49 @@
       android:layout_height="match_parent"
       tools:context=".ui.main.MainActivity">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinator"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/shape_toolbar_bg"
+        app:layout_constraintBottom_toTopOf="@id/wrapper"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_scrollFlags="scroll|enterAlways">
 
-      <com.google.android.material.appbar.AppBarLayout
+      <ImageButton
+          android:layout_width="35dp"
+          android:layout_height="35dp"
+          android:layout_gravity="end"
+          android:layout_marginEnd="16dp"
+          android:background="#000000" />
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <LinearLayout
+        android:id="@+id/wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+      <androidx.viewpager2.widget.ViewPager2
+          android:id="@+id/pager"
           android:layout_width="match_parent"
-          android:layout_height="?attr/actionBarSize"
-          android:background="#ffff">
+          android:layout_height="0dp"
+          android:layout_weight="1" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/shape_toolbar_bg"
-            app:layout_scrollFlags="scroll|enterAlways">
-
-          <ImageButton
-              android:layout_width="35dp"
-              android:layout_height="35dp"
-              android:layout_gravity="end"
-              android:layout_marginEnd="16dp"
-              android:background="#000000" />
-        </androidx.appcompat.widget.Toolbar>
-      </com.google.android.material.appbar.AppBarLayout>
-
-      <androidx.core.widget.NestedScrollView
+      <com.example.simplegithubsearch.component.CustomTabLayout
+          android:id="@+id/tab"
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:fillViewport="true"
-          app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-
-      </androidx.core.widget.NestedScrollView>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
+          android:layout_height="wrap_content"
+          app:tabGravity="fill"
+          app:tabMode="fixed" />
+    </LinearLayout>
 
   </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

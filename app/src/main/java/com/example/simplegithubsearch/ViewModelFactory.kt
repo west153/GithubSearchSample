@@ -5,6 +5,7 @@ import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
+import com.example.simplegithubsearch.ui.favorite.FavoriteViewModel
 import com.example.simplegithubsearch.ui.main.MainViewModel
 
 class ViewModelFactory(owner: SavedStateRegistryOwner, args: Bundle? = null) :
@@ -18,6 +19,7 @@ class ViewModelFactory(owner: SavedStateRegistryOwner, args: Bundle? = null) :
   ): T = with(modelClass) {
     when {
       isAssignableFrom(MainViewModel::class.java) -> MainViewModel()
+      isAssignableFrom(FavoriteViewModel::class.java) -> FavoriteViewModel()
       else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }
   } as T

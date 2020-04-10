@@ -7,14 +7,17 @@ import com.example.simplegithubsearch.base.BaseFragment
 import com.example.simplegithubsearch.databinding.FragmentMainBinding
 
 class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
+
+  companion object {
+    fun newInstance(bundle: Bundle) = MainFragment().apply { arguments = bundle }
+  }
+
   override val layoutResId: Int = R.layout.fragment_main
 
   override fun initViews(savedInstanceState: Bundle?) {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
   }
 
   override fun addObserves() {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
   }
 
   override fun obtainViewModel(): MainViewModel =
