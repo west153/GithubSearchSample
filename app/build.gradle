@@ -1,0 +1,108 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "com.example.simplegithubsearch"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    viewBinding {
+        enabled = true
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    //app
+    implementation "androidx.appcompat:appcompat:$v_appCompat"
+    implementation "com.google.android.material:material:$v_material"
+    implementation "androidx.recyclerview:recyclerview:$v_recyclerView"
+    implementation "androidx.constraintlayout:constraintlayout:$v_constraintlayout"
+    implementation "androidx.annotation:annotation:$v_androidXAnnotations"
+    implementation "androidx.legacy:legacy-support-v4:$v_support_v4"
+    implementation "androidx.test.espresso:espresso-idling-resource:$v_espresso"
+
+    //aac
+    implementation "androidx.room:room-runtime:$v_room"
+    kapt "androidx.room:room-compiler:$v_room"
+    implementation "androidx.room:room-ktx:$v_room"
+    implementation "androidx.room:room-rxjava2:$v_room"
+    implementation "androidx.lifecycle:lifecycle-extensions:$v_archLifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$v_archLifecycle"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$v_archLifecycle"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$v_archLifecycle"
+
+    //kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "androidx.fragment:fragment-ktx:$v_fragmentKtx"
+    implementation "androidx.core:core-ktx:$v_coreKtx"
+
+    //rx
+    implementation "io.reactivex.rxjava2:rxkotlin:$v_rx2_rxkotlin"
+    implementation "io.reactivex.rxjava2:rxandroid:$v_rx2_rxAndroid"
+    implementation "io.reactivex.rxjava2:rxjava:$v_rx2_rxjava"
+    implementation "com.jakewharton.rxbinding2:rxbinding:$v_rx2_rxBinding"
+
+    //test
+    debugImplementation "androidx.fragment:fragment-testing:$v_androidXFragment"
+    debugImplementation "androidx.test:core:$v_core"
+
+    testImplementation "junit:junit:$v_junit"
+    testImplementation "org.robolectric:robolectric:$v_robolectric"
+    testImplementation "androidx.test:core:$v_core"
+    testImplementation "androidx.test.ext:junit:$v_extJunit"
+    testImplementation "androidx.test.espresso:espresso-core:$v_espresso"
+    testImplementation "com.google.truth:truth:$v_truth"
+    testImplementation "androidx.arch.core:core-testing:$v_arch"
+    testImplementation "org.mockito:mockito-core:$v_mockito"
+
+    androidTestImplementation "androidx.test:core:$v_core"
+    androidTestImplementation "androidx.test.ext:junit:$v_extJunit"
+    androidTestImplementation "androidx.test:runner:$v_runner"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$v_espresso"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$v_espresso"
+    androidTestImplementation "com.google.truth:truth:$v_truth"
+    androidTestImplementation "org.robolectric:annotations:$v_robolectric"
+    androidTestImplementation "androidx.arch.core:core-testing:$v_arch"
+    androidTestImplementation "org.mockito:mockito-core:$v_mockito"
+    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$v_dexMaker"
+
+    //lib
+    implementation("com.github.bumptech.glide:glide:$v_glide") {
+        exclude group: "com.android.support"
+    }
+    implementation "com.google.code.gson:gson:$v_gson"
+}
