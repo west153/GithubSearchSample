@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.simplegithubsearch.ui.favorite.FavoriteFragment
+import com.example.simplegithubsearch.ui.home.HomeFragment
 
 class PageAdapter(fm: FragmentManager, lifecycle: Lifecycle) : FragmentStateAdapter(fm, lifecycle) {
 
@@ -22,7 +23,7 @@ class PageAdapter(fm: FragmentManager, lifecycle: Lifecycle) : FragmentStateAdap
     bundle.putInt(PAGE_POSITION, position)
 
     return when (position) {
-      0 -> MainFragment.newInstance(bundle)
+      0 -> HomeFragment.newInstance(bundle)
       else -> FavoriteFragment.newInstance(bundle)
     }
   }

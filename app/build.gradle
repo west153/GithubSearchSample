@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion 29
@@ -64,6 +65,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$v_archLifecycle"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$v_archLifecycle"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$v_archLifecycle"
+    implementation "androidx.navigation:navigation-fragment-ktx:$v_navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$v_navigation"
+
 
     //kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -99,10 +103,18 @@ dependencies {
     androidTestImplementation "androidx.arch.core:core-testing:$v_arch"
     androidTestImplementation "org.mockito:mockito-core:$v_mockito"
     androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$v_dexMaker"
+    androidTestImplementation "androidx.navigation:navigation-testing:$v_navigation"
 
     //lib
     implementation("com.github.bumptech.glide:glide:$v_glide") {
         exclude group: "com.android.support"
     }
+
+    //network
+    implementation "com.squareup.retrofit2:retrofit:$v_retrofit2"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$v_retrofit2_adapterRxjav2"
+    implementation "com.squareup.retrofit2:converter-gson:$v_retrofit2_convertGson"
+    implementation "com.squareup.okhttp3:okhttp:$v_okhttp3"
+    implementation "com.squareup.okhttp3:logging-interceptor:$v_okhttp3_loggingInterceptor"
     implementation "com.google.code.gson:gson:$v_gson"
 }

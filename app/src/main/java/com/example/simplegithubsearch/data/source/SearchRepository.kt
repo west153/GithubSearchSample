@@ -1,6 +1,6 @@
-package com.example.simplegithubsearch.data
+package com.example.simplegithubsearch.data.source
 
-import com.example.simplegithubsearch.data.remote.User
+import com.example.simplegithubsearch.data.User
 import io.reactivex.Flowable
 
 interface SearchRepository {

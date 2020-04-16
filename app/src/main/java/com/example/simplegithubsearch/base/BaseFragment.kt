@@ -8,12 +8,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import com.example.simplegithubsearch.ViewModelFactory
 
 abstract class BaseFragment<V : ViewDataBinding, VM : ViewModel> : Fragment() {
   protected val viewModelFactory by lazy { getVmFactory() }
   protected var viewModel: VM? = null
   protected var binding: V? = null
+  protected lateinit var navController: NavController
   abstract val layoutResId: Int
 
   override fun onCreateView(
@@ -24,6 +27,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : ViewModel> : Fragment() {
     binding = DataBindingUtil.inflate(inflater, layoutResId, container, false)
     binding?.lifecycleOwner = viewLifecycleOwner
     viewModel = obtainViewModel()
+    navController = findNavController()
     return binding?.root
   }
 

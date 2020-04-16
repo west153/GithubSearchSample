@@ -1,27 +1,18 @@
 package com.example.simplegithubsearch.data
 
-import com.example.simplegithubsearch.data.remote.User
+import com.example.simplegithubsearch.data.source.SearchDataSource
 import io.reactivex.Flowable
 
-class FakeSearchDataSource(private val isEmpty: Boolean = false) : SearchDataSource {
+class FakeSearchDataSource(private val data: MutableList<User> = arrayListOf()) :
+  SearchDataSource {
 
   override fun userSearch(user: String): Flowable<List<User>> {
-    val userList = arrayListOf<User>()
-    val loop = if (isEmpty) 0 else 30
-    for (i in 0 until loop) {
-      userList.add(User("$user${i + 1}", "fakeHtml${i + 1}", "fakeAvatar${i + 1}"))
-    }
-
-    return Flowable.just(userList)
+    return Flowable.just(data.filterUser(user))
   }
 
   override fun userSearch(user: String, page: Int, per_page: Int): Flowable<List<User>> {
-    val userList = arrayListOf<User>()
-
-    for (i in 0 until per_page) {
-      userList.add(User("$user${i + 1}", "fakeHtml${i + 1}", "fakeAvatar${i + 1}"))
-    }
-
-    return Flowable.just(userList)
+    return Flowable.just(data.filterUser(user).take(per_page))
   }
+
+  private fun List<User>.filterUser(user: String) = this.filter { it.login.contains(user) }
 }
