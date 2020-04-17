@@ -7,11 +7,3 @@ interface SearchDataSource {
   fun userSearch(user: String): Flowable<List<User>>
   fun userSearch(user: String, page: Int, per_page: Int): Flowable<List<User>>
 }
-
-interface A {
-  fun a()
-}
-
-interface B {
-  fun b()
-}

@@ -20,6 +20,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
   override fun initViews(savedInstanceState: Bundle?) {
   }
 
-  override fun addObserves() {
+  override fun setObserves() {
   }
 }

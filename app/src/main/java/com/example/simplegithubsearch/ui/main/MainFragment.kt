@@ -1,7 +1,7 @@
 package com.example.simplegithubsearch.ui.main
 
 import android.os.Bundle
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import com.example.simplegithubsearch.R
 import com.example.simplegithubsearch.base.BaseFragment
 import com.example.simplegithubsearch.databinding.FragmentMainBinding
@@ -13,6 +13,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
   override fun initViews(savedInstanceState: Bundle?) {
     binding?.also {
+      it.viewModel = viewModel
       it.pager.adapter = PageAdapter(childFragmentManager, lifecycle)
       TabLayoutMediator(it.tab, it.pager) { tab, position ->
         tab.setText(if (position == 0) R.string.tab_home else R.string.tab_favorite)
@@ -27,9 +28,10 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
     }
   }
 
-  override fun addObserves() {
+  override fun setObserves() {
   }
 
   override fun obtainViewModel(): MainViewModel =
-    viewModels<MainViewModel> { viewModelFactory }.value
+    activityViewModels<MainViewModel> { viewModelFactory }.value
+
 }

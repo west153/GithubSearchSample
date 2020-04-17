@@ -17,7 +17,7 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding, FavoriteViewModel
   override fun initViews(savedInstanceState: Bundle?) {
   }
 
-  override fun addObserves() {
+  override fun setObserves() {
   }
 
   override fun obtainViewModel(): FavoriteViewModel =

@@ -15,6 +15,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
   override fun initViews(savedInstanceState: Bundle?) {
   }
 
-  override fun addObserves() {
+  override fun setObserves() {
   }
 }

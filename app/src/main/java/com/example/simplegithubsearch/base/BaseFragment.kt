@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.example.simplegithubsearch.App
 import com.example.simplegithubsearch.ViewModelFactory
 
 abstract class BaseFragment<V : ViewDataBinding, VM : ViewModel> : Fragment() {
@@ -34,7 +35,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : ViewModel> : Fragment() {
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
     initViews(savedInstanceState)
-    addObserves()
+    setObserves()
   }
 
   override fun onDestroyView() {
@@ -46,9 +47,10 @@ abstract class BaseFragment<V : ViewDataBinding, VM : ViewModel> : Fragment() {
 
   abstract fun obtainViewModel(): VM
   abstract fun initViews(savedInstanceState: Bundle?)
-  abstract fun addObserves()
+  abstract fun setObserves()
 
   private fun getVmFactory(): ViewModelFactory {
-    return ViewModelFactory(this)
+    val repository = (activity?.application as App).provideSearchRepository()
+    return ViewModelFactory(repository, this)
   }
 }

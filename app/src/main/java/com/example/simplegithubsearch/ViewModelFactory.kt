@@ -5,13 +5,17 @@ import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
+import com.example.simplegithubsearch.data.source.SearchRepository
 import com.example.simplegithubsearch.ui.favorite.FavoriteViewModel
 import com.example.simplegithubsearch.ui.home.HomeViewModel
 import com.example.simplegithubsearch.ui.main.MainViewModel
 import com.example.simplegithubsearch.ui.search.SearchViewModel
 
-class ViewModelFactory(owner: SavedStateRegistryOwner, args: Bundle? = null) :
-  AbstractSavedStateViewModelFactory(owner, args) {
+class ViewModelFactory(
+  private val searchRepository: SearchRepository,
+  owner: SavedStateRegistryOwner,
+  args: Bundle? = null
+) : AbstractSavedStateViewModelFactory(owner, args) {
 
   @Suppress("UNCHECKED_CAST")
   override fun <T : ViewModel?> create(
@@ -20,7 +24,7 @@ class ViewModelFactory(owner: SavedStateRegistryOwner, args: Bundle? = null) :
     handle: SavedStateHandle
   ): T = with(modelClass) {
     when {
-      isAssignableFrom(MainViewModel::class.java) -> MainViewModel()
+      isAssignableFrom(MainViewModel::class.java) -> MainViewModel(searchRepository)
       isAssignableFrom(FavoriteViewModel::class.java) -> FavoriteViewModel()
       isAssignableFrom(SearchViewModel::class.java) -> SearchViewModel()
       isAssignableFrom(HomeViewModel::class.java) -> HomeViewModel()

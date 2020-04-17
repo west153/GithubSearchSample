@@ -12,16 +12,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setSupportActionBar(binding?.toolbar)
-
-    binding?.buttonSearch?.setOnClickListener {
-      startSearch()
-    }
   }
 
-  private fun startSearch(){
-    val directions = MainFragmentDirections.actionMainFragmentToSearchFragment()
-    navController.navigateSafe(directions)
+  private fun setupObserver() {
+
   }
+
 
 }
