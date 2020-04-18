@@ -50,7 +50,7 @@ abstract class BaseFragment<V : ViewDataBinding, VM : ViewModel> : Fragment() {
   abstract fun setObserves()
 
   private fun getVmFactory(): ViewModelFactory {
-    val repository = (activity?.application as App).provideSearchRepository()
+    val repository = (activity?.application as App).searchViewModel
     return ViewModelFactory(repository, this)
   }
 }

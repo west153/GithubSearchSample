@@ -26,7 +26,8 @@
         app:layout_scrollFlags="scroll|enterAlways">
 
       <EditText
-          onEditorSearchAction="@{()->viewModel.getUser()}"
+          android:id="@+id/input"
+          android:onEditorSearchAction="@{()->viewModel.getUser()}"
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_gravity="center_vertical"

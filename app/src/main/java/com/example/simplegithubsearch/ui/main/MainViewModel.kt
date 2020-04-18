@@ -1,26 +1,30 @@
 package com.example.simplegithubsearch.ui.main
 
-import android.util.Log
-import android.view.inputmethod.EditorInfo
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
+import com.example.simplegithubsearch.Event
 import com.example.simplegithubsearch.base.BaseViewModel
-import com.example.simplegithubsearch.data.source.SearchRepository
-import io.reactivex.rxkotlin.addTo
+import com.example.simplegithubsearch.ui.SearchViewModel
 
-class MainViewModel(private val searchRepository: SearchRepository) : BaseViewModel() {
+class MainViewModel(
+  private val searchViewModel: SearchViewModel
+) : BaseViewModel() {
 
   val input = MutableLiveData<String>()
-  val aa = { getUser() }
+
+  val hideKeyboard: LiveData<Event<Unit>> get() = searchViewModel.doOnSubscribe.map {
+      input.value = ""
+      it
+    }
 
   fun getUser() {
-    EditorInfo.IME_ACTION_SEARCH
-    searchRepository.userSearch(input.value ?: return)
-      .doOnSubscribe { input.value = "" }
-      .subscribe(
-        {
-          Log.d("MainViewModel", it.toString())
-        }, { it.printStackTrace() })
-      .addTo(compositeDisposable)
+    searchViewModel.getUser(input.value ?: return)
+  }
+
+  override fun onCleared() {
+    super.onCleared()
+    searchViewModel.clear()
   }
 
 }

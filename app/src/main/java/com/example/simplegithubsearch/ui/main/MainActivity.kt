@@ -4,7 +4,6 @@ import android.os.Bundle
 import com.example.simplegithubsearch.R
 import com.example.simplegithubsearch.base.BaseActivity
 import com.example.simplegithubsearch.databinding.ActivityMainBinding
-import com.example.simplegithubsearch.utils.navigateSafe
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
 
@@ -13,10 +12,4 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
   }
-
-  private fun setupObserver() {
-
-  }
-
-
 }
