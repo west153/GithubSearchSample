@@ -6,6 +6,7 @@ import androidx.lifecycle.map
 import com.example.simplegithubsearch.Event
 import com.example.simplegithubsearch.base.BaseViewModel
 import com.example.simplegithubsearch.ui.SearchViewModel
+import com.example.simplegithubsearch.utils.default
 
 class MainViewModel(
   private val searchViewModel: SearchViewModel
@@ -13,8 +14,13 @@ class MainViewModel(
 
   val input = MutableLiveData<String>()
 
-  val hideKeyboard: LiveData<Event<Unit>> get() = searchViewModel.doOnSubscribe.map {
+  private val _pageCurrentItem = MutableLiveData<Event<Int>>().default(Event(0))
+  val pageCurrentItem: LiveData<Event<Int>> get() = _pageCurrentItem
+
+  val hideKeyboard: LiveData<Event<Unit>>
+    get() = searchViewModel.doOnSubscribe.map {
       input.value = ""
+      _pageCurrentItem.value = Event(0)
       it
     }
 

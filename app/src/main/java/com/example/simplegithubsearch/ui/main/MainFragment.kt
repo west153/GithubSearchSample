@@ -36,6 +36,9 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
       hideKeyboard()
     })
 
+    viewModel?.pageCurrentItem?.observe(viewLifecycleOwner, EventObserver {
+      setPageCurrentItem(it)
+    })
   }
 
   override fun obtainViewModel(): MainViewModel =
@@ -46,5 +49,12 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
       it.hideSoftInputFromWindow(binding?.input?.windowToken, 0)
     }
   }
+
+  private fun setPageCurrentItem(index: Int) {
+    if (binding?.pager?.currentItem != index) {
+      binding?.pager?.currentItem = index
+    }
+  }
+
 
 }

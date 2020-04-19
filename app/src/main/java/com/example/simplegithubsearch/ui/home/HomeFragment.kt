@@ -18,6 +18,9 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
     viewModels<HomeViewModel> { viewModelFactory }.value
 
   override fun initViews(savedInstanceState: Bundle?) {
+    binding?.also {
+      it.viewModel = viewModel
+    }
   }
 
   override fun setObserves() {

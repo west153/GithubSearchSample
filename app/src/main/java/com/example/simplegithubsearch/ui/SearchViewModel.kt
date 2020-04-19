@@ -9,6 +9,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 
 class SearchViewModel(private val searchRepository: SearchRepository) {
+  private val unit get() = Event(Unit)
   private val compositeDisposable = CompositeDisposable()
 
   private val _doOnSubscribe = MutableLiveData<Event<Unit>>()
@@ -19,9 +20,7 @@ class SearchViewModel(private val searchRepository: SearchRepository) {
 
   fun getUser(user: String) {
     searchRepository.userSearch(user)
-      .doOnSubscribe {
-        _doOnSubscribe.value = Event(Unit)
-      }
+      .doOnSubscribe { _doOnSubscribe.value = unit }
       .subscribe(
         { _userList.value = it }, { it.printStackTrace() }
       )
