@@ -3,4 +3,5 @@
   <string name="tab_home">HOME</string>
   <string name="tab_favorite">FAVORITE</string>
   <string name="input_hint">검색할 유저 이름을 입력해 주세요.</string>
+  <string name="user_description">user description</string>
 </resources>

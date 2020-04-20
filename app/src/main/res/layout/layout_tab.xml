@@ -10,7 +10,7 @@
       android:layout_width="35dp"
       android:layout_height="35dp"
       android:layout_gravity="center_horizontal"
-      tools:background="#000000" />
+      tools:background="@color/colorBlack" />
 
   <TextView
       android:id="@+id/tabText"

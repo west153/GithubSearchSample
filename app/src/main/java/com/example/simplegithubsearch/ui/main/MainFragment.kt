@@ -15,7 +15,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
   override val layoutResId: Int = R.layout.fragment_main
 
   override fun initViews(savedInstanceState: Bundle?) {
-    binding?.also {
+    binding?.let {
       it.viewModel = viewModel
       it.pager.adapter = PageAdapter(childFragmentManager, lifecycle)
       TabLayoutMediator(it.tab, it.pager) { tab, position ->
@@ -26,7 +26,7 @@ class MainFragment : BaseFragment<FragmentMainBinding, MainViewModel>() {
 
   override fun onDestroyView() {
     super.onDestroyView()
-    binding?.also {
+    binding?.let {
       it.pager.adapter = null
     }
   }
