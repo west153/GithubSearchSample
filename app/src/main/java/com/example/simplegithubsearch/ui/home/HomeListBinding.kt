@@ -7,6 +7,6 @@ import com.example.simplegithubsearch.data.UserDetail
 @BindingAdapter(value = ["app:item"])
 fun RecyclerView.setItems(item: List<UserDetail>?) {
   item?.let {
-    (this.adapter as? UserListAdapter)?.initList(it)
+    (this.adapter as? UserListAdapter)?.submitList(it)
   }
 }

@@ -1,6 +1,5 @@
 package com.example.simplegithubsearch.ui
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.simplegithubsearch.Event
@@ -20,10 +19,18 @@ class SearchViewModel(private val searchRepository: SearchRepository) {
   val userList: LiveData<List<UserDetail>> get() = _userList
 
   fun getUser(user: String) {
+    val oldList = _userList.value ?: arrayListOf()
+
     searchRepository.userSearch(user)
-      .doOnSubscribe { _doOnSubscribe.value = unit }
+      .doOnSubscribe {
+        _userList.value = arrayListOf()
+        _doOnSubscribe.value = unit
+      }
       .subscribe(
-        { _userList.value = it }, { it.printStackTrace() }
+        {
+          _userList.value = oldList.diffToAdd(it)
+        },
+        { it.printStackTrace() }
       )
       .addTo(compositeDisposable)
   }
@@ -31,4 +38,16 @@ class SearchViewModel(private val searchRepository: SearchRepository) {
   fun clear() {
     compositeDisposable.clear()
   }
+
+  private fun List<UserDetail>.diffToAdd(newList: List<UserDetail>): List<UserDetail> {
+    val result = this.toMutableList()
+    for (item in newList) {
+      val any = this.any { it.login == item.login && it == item }
+      if (!any) {
+        result.add(item)
+      }
+    }
+    return result
+  }
+
 }
