@@ -2,14 +2,15 @@ package com.example.simplegithubsearch.ui.main
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.map
 import com.example.simplegithubsearch.Event
 import com.example.simplegithubsearch.base.BaseViewModel
-import com.example.simplegithubsearch.ui.SearchViewModel
+import com.example.simplegithubsearch.data.UserDetail
+import com.example.simplegithubsearch.data.source.SearchRepository
 import com.example.simplegithubsearch.utils.default
+import io.reactivex.rxkotlin.addTo
 
 class MainViewModel(
-  private val searchViewModel: SearchViewModel
+  private val searchRepository: SearchRepository
 ) : BaseViewModel() {
 
   val input = MutableLiveData<String>()
@@ -17,20 +18,39 @@ class MainViewModel(
   private val _pageCurrentItem = MutableLiveData<Event<Int>>().default(Event(0))
   val pageCurrentItem: LiveData<Event<Int>> get() = _pageCurrentItem
 
-  val hideKeyboard: LiveData<Event<Unit>>
-    get() = searchViewModel.doOnSubscribe.map {
-      input.value = ""
-      _pageCurrentItem.value = Event(0)
-      it
-    }
+  private val _hideKeyboard = MutableLiveData<Event<Unit>>()
+  val hideKeyboard: LiveData<Event<Unit>> get() = _hideKeyboard
+
+  private val _isLoading = MutableLiveData<Boolean>()
+  val isLoading: LiveData<Boolean> get() = _isLoading
+
+  private val _userList = MutableLiveData<List<UserDetail>>()
+  val userList: LiveData<List<UserDetail>> get() = _userList
 
   fun getUser() {
-    searchViewModel.getUser(input.value ?: return)
+    searchRepository.userSearch(input.value ?: return)
+      .doOnSubscribe {
+        loadUser(true)
+        input.value = ""
+        _pageCurrentItem.value = Event(0)
+        _hideKeyboard.value = unit
+      }
+      .subscribe(
+        {
+          loadUser(false)
+          _userList.value = it
+        },
+        {
+          loadUser(false)
+          it.printStackTrace()
+        }
+      )
+      .addTo(compositeDisposable)
   }
 
-  override fun onCleared() {
-    super.onCleared()
-    searchViewModel.clear()
+
+  private fun loadUser(load: Boolean) {
+    _isLoading.value = load
   }
 
 }

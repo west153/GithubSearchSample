@@ -9,10 +9,11 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.simplegithubsearch.R
 import com.example.simplegithubsearch.data.UserDetail
 import com.example.simplegithubsearch.databinding.ItemUserListBinding
+import com.example.simplegithubsearch.ui.main.MainViewModel
 
 class UserListAdapter(
   private val requestManager: RequestManager,
-  private val viewModel: HomeViewModel
+  private val viewModel: MainViewModel
 ) : ListAdapter<UserDetail, UserListAdapter.UserListViewHolder>(UserDiffCallback()) {
 
   override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserListViewHolder {
@@ -37,7 +38,7 @@ class UserListAdapter(
       placeholder(R.color.colorBlack)
     }
 
-    fun bind(vm: HomeViewModel, user: UserDetail) {
+    fun bind(vm: MainViewModel, user: UserDetail) {
       binding.tvId.text = user.login
       binding.tvDescription.text = user.bio
 

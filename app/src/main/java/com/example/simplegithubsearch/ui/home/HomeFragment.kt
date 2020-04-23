@@ -1,15 +1,16 @@
 package com.example.simplegithubsearch.ui.home
 
 import android.os.Bundle
-import androidx.fragment.app.viewModels
+import android.util.Log
+import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
-import com.example.simplegithubsearch.EventObserver
 import com.example.simplegithubsearch.R
 import com.example.simplegithubsearch.base.BaseFragment
 import com.example.simplegithubsearch.databinding.FragmentHomeBinding
+import com.example.simplegithubsearch.ui.main.MainViewModel
 
-class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
+class HomeFragment : BaseFragment<FragmentHomeBinding, MainViewModel>() {
 
   companion object {
     fun newInstance(bundle: Bundle) = HomeFragment().apply { arguments = bundle }
@@ -20,8 +21,8 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
   private lateinit var requestManager: RequestManager
   private var listAdapter: UserListAdapter? = null
 
-  override fun obtainViewModel(): HomeViewModel =
-    viewModels<HomeViewModel> { viewModelFactory }.value
+  override fun obtainViewModel(): MainViewModel =
+    activityViewModels<MainViewModel> { viewModelFactory }.value
 
   override fun initViews(savedInstanceState: Bundle?) {
     requestManager = Glide.with(this)
@@ -37,13 +38,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
   }
 
   override fun setObserves() {
-    viewModel?.doOnSubscribe?.observe(viewLifecycleOwner, EventObserver {
-      viewModel?.loadUser(true)
-    })
 
-    viewModel?.doOnError?.observe(viewLifecycleOwner, EventObserver {
-      viewModel?.onError(it)
-    })
   }
 
   private fun setListAdapter() {
