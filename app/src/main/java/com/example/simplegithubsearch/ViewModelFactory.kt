@@ -6,17 +6,18 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import com.example.simplegithubsearch.data.source.SearchRepository
-import com.example.simplegithubsearch.ui.SearchViewModel
+import com.example.simplegithubsearch.ui.detail.DetailViewModel
 import com.example.simplegithubsearch.ui.favorite.FavoriteViewModel
 import com.example.simplegithubsearch.ui.home.HomeViewModel
 import com.example.simplegithubsearch.ui.main.MainViewModel
-import com.example.simplegithubsearch.ui.detail.DetailViewModel
 
 class ViewModelFactory(
-  private val searchViewModel: SearchViewModel,
+  private val searchRepository: SearchRepository,
   owner: SavedStateRegistryOwner,
   args: Bundle? = null
 ) : AbstractSavedStateViewModelFactory(owner, args) {
+
+  private val searchViewModel = RepositoryLocator.provideSearchViewModel(searchRepository)
 
   @Suppress("UNCHECKED_CAST")
   override fun <T : ViewModel?> create(

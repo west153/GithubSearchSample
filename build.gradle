@@ -71,7 +71,7 @@ ext {
 
     //test
     v_androidXFragment = '1.2.4'
-    v_core = '1.2.0'
+    v_core = '1.3.0-alpha03'
     v_junit = '4.12'
     v_robolectric = '4.3.1'
     v_extJunit = '1.1.2-alpha03'

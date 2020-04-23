@@ -15,39 +15,26 @@ class SearchViewModel(private val searchRepository: SearchRepository) {
   private val _doOnSubscribe = MutableLiveData<Event<Unit>>()
   val doOnSubscribe: LiveData<Event<Unit>> get() = _doOnSubscribe
 
+  private val _doOnError = MutableLiveData<Event<Throwable>>()
+  val doOnError: LiveData<Event<Throwable>> get() = _doOnError
+
   private val _userList = MutableLiveData<List<UserDetail>>()
   val userList: LiveData<List<UserDetail>> get() = _userList
 
   fun getUser(user: String) {
-    val oldList = _userList.value ?: arrayListOf()
-
     searchRepository.userSearch(user)
-      .doOnSubscribe {
-        _userList.value = arrayListOf()
-        _doOnSubscribe.value = unit
-      }
+      .doOnSubscribe { _doOnSubscribe.value = unit }
       .subscribe(
         {
-          _userList.value = oldList.diffToAdd(it)
+          _userList.value = it
         },
-        { it.printStackTrace() }
+        { _doOnError.value = Event(it) }
       )
       .addTo(compositeDisposable)
   }
 
   fun clear() {
     compositeDisposable.clear()
-  }
-
-  private fun List<UserDetail>.diffToAdd(newList: List<UserDetail>): List<UserDetail> {
-    val result = this.toMutableList()
-    for (item in newList) {
-      val any = this.any { it.login == item.login && it == item }
-      if (!any) {
-        result.add(item)
-      }
-    }
-    return result
   }
 
 }

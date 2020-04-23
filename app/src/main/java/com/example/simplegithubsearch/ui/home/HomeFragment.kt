@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestManager
+import com.example.simplegithubsearch.EventObserver
 import com.example.simplegithubsearch.R
 import com.example.simplegithubsearch.base.BaseFragment
 import com.example.simplegithubsearch.databinding.FragmentHomeBinding
@@ -36,6 +37,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
   }
 
   override fun setObserves() {
+    viewModel?.doOnSubscribe?.observe(viewLifecycleOwner, EventObserver {
+      viewModel?.loadUser(true)
+    })
+
+    viewModel?.doOnError?.observe(viewLifecycleOwner, EventObserver {
+      viewModel?.onError(it)
+    })
   }
 
   private fun setListAdapter() {
