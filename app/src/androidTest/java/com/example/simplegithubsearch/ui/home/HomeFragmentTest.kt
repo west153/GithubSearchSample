@@ -18,7 +18,6 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.lang.Thread.sleep
 
 @RunWith(AndroidJUnit4::class)
 @MediumTest
@@ -35,7 +34,6 @@ class HomeFragmentTest {
   @After
   fun clear() {
     RepositoryLocator.searchRepository = null
-    RepositoryLocator.searchViewModel = null
   }
 
   @Test
@@ -64,8 +62,6 @@ class HomeFragmentTest {
     //when
     onView(withId(R.id.input)).perform(ViewActions.typeText(inputText))
     onView(withId(R.id.buttonSearch)).perform(ViewActions.click())
-
-    sleep(4000)
 
     //then
     onView(withText("a22")).check(doesNotExist())

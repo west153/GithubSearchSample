@@ -11,13 +11,19 @@ class FakeSearchRepository(private val userList: ArrayList<User> = arrayListOf()
   SearchRepository {
 
   override fun userSearch(user: String): Flowable<List<UserDetail>> {
-    return Flowable.just(userList)
-      .compose(applyDetail())
+    return if (userList.isEmpty())
+      Flowable.just(arrayListOf())
+    else
+      Flowable.just(userList)
+        .compose(applyDetail())
   }
 
   override fun userSearch(user: String, page: Int, per_page: Int): Flowable<List<UserDetail>> {
-    return Flowable.just(userList)
-      .compose(applyDetail())
+    return if (userList.isEmpty())
+      Flowable.just(arrayListOf())
+    else
+      Flowable.just(userList)
+        .compose(applyDetail())
   }
 
   private fun applyDetail(): FlowableTransformer<List<User>, List<UserDetail>> {
