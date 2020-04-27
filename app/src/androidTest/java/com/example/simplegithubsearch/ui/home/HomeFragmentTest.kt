@@ -11,30 +11,15 @@ import androidx.test.filters.MediumTest
 import com.example.simplegithubsearch.R
 import com.example.simplegithubsearch.RepositoryLocator
 import com.example.simplegithubsearch.data.User
-import com.example.simplegithubsearch.data.source.SearchRepository
 import com.example.simplegithubsearch.ui.data.FakeSearchRepository
 import com.example.simplegithubsearch.ui.main.MainActivity
-import org.junit.After
-import org.junit.Before
+import org.hamcrest.core.IsNot.not
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 @MediumTest
 class HomeFragmentTest {
-
-  private lateinit var searchRepository: SearchRepository
-
-  @Before
-  fun setup() {
-    searchRepository = FakeSearchRepository()
-    RepositoryLocator.searchRepository = searchRepository
-  }
-
-  @After
-  fun clear() {
-    RepositoryLocator.searchRepository = null
-  }
 
   @Test
   fun displayUser_hasData() {
@@ -57,6 +42,7 @@ class HomeFragmentTest {
   fun displayUser_noData() {
     //given
     val inputText = "a22"
+    RepositoryLocator.searchRepository = FakeSearchRepository()
     launchActivity()
 
     //when
@@ -67,24 +53,39 @@ class HomeFragmentTest {
     onView(withText("a22")).check(doesNotExist())
   }
 
-  @Test
-  fun displayUser_listSize_30() {
-
-  }
 
   @Test
   fun displayProgress_beforeUserSearching() {
+    //given
+    val inputText = "test"
+    launchActivity()
 
+    //when
+    onView(withId(R.id.input)).perform(ViewActions.typeText(inputText))
+    onView(withId(R.id.buttonSearch)).perform(ViewActions.click())
+
+    //then
+    onView(withId(R.id.progress)).check(matches(isDisplayed()))
   }
 
   @Test
   fun displayNoDataView() {
+    //given
+    val inputText = "test"
+    RepositoryLocator.searchRepository = FakeSearchRepository()
+    launchActivity()
 
+    //when
+    onView(withId(R.id.input)).perform(ViewActions.typeText(inputText))
+    onView(withId(R.id.buttonSearch)).perform(ViewActions.click())
+
+    //then
+    onView(withId(R.id.noDataWrapper)).check(matches(isDisplayed()))
+    onView(withId(R.id.userList)).check(matches(not(isDisplayed())))
   }
 
   private fun launchActivity(): ActivityScenario<MainActivity>? {
-    val activityScenario = ActivityScenario.launch(MainActivity::class.java)
-    return activityScenario
+    return ActivityScenario.launch(MainActivity::class.java)
   }
 
 }
