@@ -24,6 +24,9 @@ class MainViewModel(
   private val _isLoading = MutableLiveData<Boolean>()
   val isLoading: LiveData<Boolean> get() = _isLoading
 
+  private val _isUserEmpty = MutableLiveData<Boolean>()
+  val isUserEmpty: LiveData<Boolean> get() = _isUserEmpty
+
   private val _userList = MutableLiveData<List<UserDetail>>()
   val userList: LiveData<List<UserDetail>> get() = _userList
 
@@ -38,6 +41,7 @@ class MainViewModel(
       .subscribe(
         {
           loadUser(false)
+          _isUserEmpty.value = it.isEmpty()
           _userList.value = it
         },
         {
