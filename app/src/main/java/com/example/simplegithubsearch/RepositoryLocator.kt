@@ -1,6 +1,6 @@
 package com.example.simplegithubsearch
 
-import com.example.simplegithubsearch.data.baseUrl
+import com.example.simplegithubsearch.data.BASE_URL
 import com.example.simplegithubsearch.data.source.RemoteSearchDataSource
 import com.example.simplegithubsearch.data.source.SearchDataSource
 import com.example.simplegithubsearch.data.source.SearchRepository
@@ -24,6 +24,6 @@ object RepositoryLocator {
   }
 
   private fun createRemoteDataSource(): SearchDataSource {
-    return RemoteSearchDataSource(ApiManager.getService(baseUrl))
+    return RemoteSearchDataSource(ApiManager.getService(BASE_URL))
   }
 }
