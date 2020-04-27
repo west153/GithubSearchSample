@@ -1,8 +1,8 @@
 package com.example.simplegithubsearch.data
 
-const val baseUrl = "https://api.github.com"
-const val authorization = "Authorization"
-const val token = "token 326f3e3e022727d5ca240e4f5e669fc99b35f682"
+const val BASE_URL = "https://api.github.com"
+const val AUTHORIZATION = "Authorization"
+const val TOKEN = ""
 
-const val search_user = "/search/users"
-const val user_detail = "/users/{user}"
+const val SEARCH_USER = "/search/users"
+const val USER_DETAIL = "/users/{user}"
