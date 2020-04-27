@@ -3,5 +3,6 @@
   <string name="tab_home">HOME</string>
   <string name="tab_favorite">FAVORITE</string>
   <string name="input_hint">검색할 유저 이름을 입력해 주세요.</string>
-  <string name="user_description">user description</string>
+  <string name="user_description">자기소개</string>
+  <string name="user_no_data">유저를 찾을수없음.</string>
 </resources>
