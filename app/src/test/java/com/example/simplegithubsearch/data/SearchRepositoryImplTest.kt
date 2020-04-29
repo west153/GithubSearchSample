@@ -43,7 +43,7 @@ class SearchRepositoryImplTest {
 
     //then
     userDetailList.test()
-      .assertValue { it[0].bio == "test1" && it[1].bio == "test2" }
+      .assertValue { userDetail1.bio == "test1" && userDetail2.bio == "test2" }
   }
 
   @Test
